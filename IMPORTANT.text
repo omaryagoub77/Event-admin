@@ -1,0 +1,52 @@
+Act as a senior frontend developer and code analyst. Your task is to perform a comprehensive analysis of my React codebase to generate detailed documentation for my development team. This documentation will be used to understand the data layer and component architecture for future development.
+
+Please perform the following two main tasks, focusing **only on the code within the `src` directory**.
+
+---
+
+### **Task 1: Firebase Database & Service Analysis**
+
+Your goal is to reverse-engineer the Firebase database structure and usage patterns from the code. You cannot access the live database, so you must infer everything from the source code.
+
+1.  **Identify Firebase Usage:**
+    *   Find all files that import and initialize Firebase (`firebase/app`, `firebase/firestore`, `firebase/auth`, etc.).
+    *   Locate the configuration file (e.g., `firebaseConfig.js`).
+
+2.  **Deduce the Database Schema:**
+    *   Scan for all Firestore database interactions (e.g., `db.collection()`, `doc()`, `add()`, `set()`, `get()`, `onSnapshot()`).
+    *   From these interactions, map out the complete database structure. For each top-level collection, provide the following details in a structured format:
+        *   **Collection Path:** The full path, including subcollections (e.g., `users/{userId}/posts/{postId}`).
+        *   **Description:** A brief explanation of what this data represents, inferred from its usage in the code.
+        *   **Inferred Schema:** A detailed list of the fields within the documents of this collection. For each field, specify:
+            *   `fieldName`: `DataType` (e.g., `name`: `String`, `createdAt`: `Timestamp`, `isActive`: `Boolean`).
+            *   If a field is an object or array, detail its nested structure.
+            *   Note any fields that appear to be optional.
+            *   **Prioritize TypeScript interfaces or JSDoc comments if they exist.**
+        *   **Source Code Locations:** List the file paths where this collection is read from, written to, or modified (e.g., `src/components/UserProfile.jsx`, `src/services/postService.js`).
+
+3.  **Analyze Other Firebase Services:**
+    *   Briefly describe the usage of other Firebase services like Authentication, Storage, or Functions. What methods are being called and for what purpose?
+
+---
+
+### **Task 2: Non-Firebase Component Analysis**
+
+Your goal is to identify and describe React components that operate independently of Firebase.
+
+1.  **Identify Components:**
+    *   Scan the `src/components` directory (and any other component directories).
+    *   Filter out any component that imports or uses Firebase services as identified in Task 1.
+
+2.  **Document Each Component:**
+    *   For each remaining component, provide the following details:
+        *   **File Path:** The relative path to the component file (e.g., `src/components/layout/Header.tsx`).
+        *   **Purpose:** A one-sentence summary of what the component does (e.g., "A static header containing the main navigation links and logo.").
+        *   **Props:** List the props it accepts and their types.
+        *   **State Management:** Briefly mention if it uses local state (`useState`, `useReducer`), a global state manager (Redux, Zustand), or is purely presentational.
+        *   **Key Dependencies:** Note any significant non-Firebase libraries it relies on (e.g., `react-router-dom`, `framer-motion`, a UI library like MUI).
+
+---
+
+### **Final Output Format**
+
+Please structure your entire response using Markdown. Use clear headings (`##`), subheadings (`###`), code blocks for schemas and file paths, and bullet points for lists. The goal is a clean, readable document that I can save and share.
